@@ -2,9 +2,20 @@
 
 {% block content %}
 {% for item in posts %}
-    <a href="{% url 'posts:detail' id=item.id %}"><h1> {{item.title}} </h1></a>
-    <p>{{item.content}} </p>
-    <p> {{item.id}} </p>
-    <hr>
+<div class="row">
+
+  <div class="col-sm-8 col-md-8">
+    <div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <small> created {{item.timestamp | timesince}} ago </small>
+        <h3>  <a href="{% url 'posts:detail' id=item.id %}"> {{item.title}} </a></h3>
+        <p>{{item.content|linebreaks | truncatechars:240}} </p>
+        <p><a href="{% url 'posts:detail' id=item.id %}" class="btn btn-primary" role="button">Detailed...</a> </p>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endfor %}
 {%  endblock content %}

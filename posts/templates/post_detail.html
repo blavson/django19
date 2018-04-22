@@ -1,8 +1,8 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <h1> {{instance.title}} </h1>
-    <p>{{instance.content}} </p>
-    <p> {{instance.id}} </p>
-    <hr>
+<div class="col-sm-6 col-sm-offset-3">
+    <h1> {{instance.title}} </h1><small> created {{instance.timestamp | timesince}} ago </small>
+    <p>{{instance.content |linebreaks}} </p>
+  </div>
 {%  endblock content %}
