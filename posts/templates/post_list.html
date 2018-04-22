@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+
+{% block content %}
+{% for item in posts %}
+    <a href="{% url 'posts:detail' id=item.id %}"><h1> {{item.title}} </h1></a>
+    <p>{{item.content}} </p>
+    <p> {{item.id}} </p>
+    <hr>
+{% endfor %}
+{%  endblock content %}
