@@ -1,8 +1,8 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from unidecode import unidecode
 from django.utils.text import slugify
+from unidecode import unidecode
 
 def upload_location(instance, filename):
     return "%s/%s" %(instance.id, filename)
@@ -29,4 +29,4 @@ class Post(models.Model):
 
 @receiver(pre_save,sender=Post)
 def my_callback(sender, instance, *args, **kwargs):
-    instance.slug =slugify(instance.title, True)
+    instance.slug =slugify(unidecode(instance.title))

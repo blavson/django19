@@ -14,8 +14,8 @@ def post_list(request):
 
     return render(request, 'post_list.html', {'posts' : queryset})
 
-def post_detail(request, id):
-    instance = get_object_or_404(Post, id=id)
+def post_detail(request, slug):
+    instance = get_object_or_404(Post, slug=slug)
     context = { 'title' :  instance.title,
                 "instance" : instance
                 }
@@ -38,16 +38,15 @@ def post_create(request):
                     }
     return render(request, 'post_form.html', context)
 
-def post_update(request, id):
-
+def post_update(request, slug):
+    instance = get_object_or_404(Post, slug=slug)
     if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
         messages.success(request, "Successfully Updated")
         return redirect("posts:homepage")
     else:
-        instance = get_object_or_404(Post, id=id)
         form  = PostForm(instance=instance)
         context = { 'title' :  instance.title,
                 "instance" : instance,
@@ -56,8 +55,8 @@ def post_update(request, id):
                 }
     return render(request, 'post_form.html', context)
 
-def post_delete(request,id):
-    instance = get_object_or_404(Post, id=id)
+def post_delete(request,slug):
+    instance = get_object_or_404(Post, slug=slug)
     instance.delete()
     messages.success(request, "Item  deleted")
     return redirect("posts:homepage")
