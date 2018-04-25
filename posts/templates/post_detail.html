@@ -6,6 +6,16 @@
    <img src={{instance.image.url}} class='img-responsive'> </>
   {% endif %}
     <h1> {{instance.title}} </h1><small> created {{instance.timestamp | timesince}} ago </small>
+    {% if instance.author.get_full_name %}
+      <p> Author : {{instance.author.get_full_name }} </p>
+    {% else %}
+      <p> Author : {{instance.author }} </p>
+    {% endif %}  
+<hr>
+<p>
+<div class="fb-like" data-href="{{request.build.absolute_path}}" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
     <p>{{instance.content |linebreaks}} </p>
+</p>
+<div class="fb-comments" data-href="{{request.build.absolute_path}}" data-numposts="5"></div>
   </div>
 {%  endblock content %}

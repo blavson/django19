@@ -1,11 +1,8 @@
 {% extends "master.html" %}
 
 {% block content %}
-{% for item in posts %}
-
-
 <div class="row">
-
+{% for item in posts %}
   <div class="col-sm-6 col-sm-offset-3">
     <div class="thumbnail">
       {% if item.image %}
@@ -20,9 +17,6 @@
       </div>
     </div>
   </div>
-
-</div>
-
 {% endfor %}
 
 <div class="pagination">
@@ -41,6 +35,7 @@
             <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
+</div>
 </div>
 
 {%  endblock content %}

@@ -4,6 +4,8 @@ from django.contrib import messages
 from .models import Post
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 def post_list(request):
     queryset_list = Post.objects.all()
@@ -22,11 +24,14 @@ def post_detail(request, slug):
     return render(request, 'post_detail.html', context)
 
 
+@login_required
 def post_create(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit = False)
+            instance.author =request.user;
+            instance.save();
             messages.success(request, "Successfully created")
             return redirect("posts:homepage")
         else:
