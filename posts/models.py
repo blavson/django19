@@ -19,6 +19,7 @@ class Post(models.Model):
     timestamp=models.DateTimeField(auto_now=False, auto_now_add=True)
     updated=models.DateTimeField(auto_now=True, auto_now_add=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    tag = models.CharField(max_length=255,null=True)
 
     def __unicode__(self):
         return self.title
@@ -32,3 +33,5 @@ class Post(models.Model):
 @receiver(pre_save,sender=Post)
 def my_callback(sender, instance, *args, **kwargs):
     instance.slug =slugify(unidecode(instance.title))
+    tempstring = instance.tag;
+    instance.tag = tempstring.replace(" ",",")                                                                                                                                                                                                                                           
